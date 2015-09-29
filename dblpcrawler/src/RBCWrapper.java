@@ -2,6 +2,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 
+/**
+ * This class does everything the ReadableByteChannel does, except that it adds logic to the already existing methods to determine the progress
+ */
 public final class RBCWrapper implements ReadableByteChannel
 {
 	private ReadableByteChannel m_Reader;
@@ -34,6 +37,8 @@ public final class RBCWrapper implements ReadableByteChannel
 	public int read(ByteBuffer dst) throws IOException 
 	{
 		int bytesRead = m_Reader.read(dst);
+		
+		// Save the amount of bytes read
 		m_DownloadedBytes += bytesRead;
 		
 		if(m_PrintProgress) {
@@ -43,6 +48,9 @@ public final class RBCWrapper implements ReadableByteChannel
 		return bytesRead;
 	}
 	
+	/**
+	 * Print the progress of the read (bytes read / total bytes)
+	 */
 	public void PrintProgress ()
 	{
 		int progPerc = (int) ((m_DownloadedBytes / (float) m_TotalBytes) * 100);

@@ -1,10 +1,19 @@
 import java.io.File;
 
+/**
+ * This class is responsible for truncating a directory
+ */
 public class TruncateDirHandler 
 {
-	public static void RemoveFilesinDir(String p_Folder, boolean p_PrintProgress)
+	/**
+	 * Truncate a directory
+	 * 
+	 * @param p_Directory The directory to be truncated
+	 * @param p_PrintProgress If printing progress is wanted
+	 */
+	public static void RemoveFilesinDir(String p_Directory, boolean p_PrintProgress)
 	{
-		File dir = new File(p_Folder);
+		File dir = new File(p_Directory);
 		
 		if(p_PrintProgress)
 		{
@@ -16,6 +25,7 @@ public class TruncateDirHandler
 			}
 		}
 
+		// Iterate all files in the directory and delete them
 		for(File file: dir.listFiles())
 		{
 			if(p_PrintProgress) {

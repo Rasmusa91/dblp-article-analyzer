@@ -1,10 +1,20 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
+/**
+ * This class is responsible for global functions
+ */
 public class Utilities 
 {
+	/**
+	 * Check if an array contains a value
+	 * 
+	 * @param p_Array The array to be searched
+	 * @param p_Value The value to be searched for
+	 * 
+	 * @return If the array contains the value
+	 */
 	public static <T> boolean ArrayContains (T[] p_Array, T p_Value)
 	{
 		boolean contains = false;
@@ -19,6 +29,13 @@ public class Utilities
 		return contains;
 	}
 	
+	/**
+	 * Safely convert a string into an integer
+	 * 
+	 * @param p_String The string to be converted
+	 * 
+	 * @return The integer parsed from the string
+	 */
 	public static int StringToInt(String p_String)
 	{
 		int n = -1;
@@ -33,6 +50,13 @@ public class Utilities
 		return n;
 	}
 	
+	/**
+	 * Convert ms to a readable format
+	 * 
+	 * @param p_MS The elapsed time in ms
+	 * 
+	 * @return The formatted time
+	 */
 	public static String TimeToString (long p_MS)
 	{
 		int s = (int) ((p_MS / 1000) % 60);
@@ -51,6 +75,13 @@ public class Utilities
 		return time;
 	}
 	
+	/**
+	 * Convert a string to a date
+	 * 
+	 * @param p_Date The date in string format
+	 * 
+	 * @return The date in Date format
+	 */
 	public static Date StringToDate(String p_Date)
 	{
 		DateFormat f = new SimpleDateFormat(ConfigVars.DATE_FORMAT);

@@ -25,7 +25,8 @@ public class DownloadFileHandler
     	try {   		
 			url = new URL(p_RemoteFile);
 			
-	    	rbcw = new RBCWrapper(Channels.newChannel(url.openStream()), GetURLSize(url), p_PrintProgress);
+			// Use the custom RBC wrapper to be able to print progress
+	    	rbcw = new RBCWrapper(Channels.newChannel(url.openStream()), GetRemoteFileSize(url), p_PrintProgress);
 	    	fos = new FileOutputStream(p_LocalFile);
 	    	fos.getChannel().transferFrom(rbcw, 0, Long.MAX_VALUE);    	
     	}
@@ -34,7 +35,13 @@ public class DownloadFileHandler
     	}
 	}
 
-	private static int GetURLSize (URL p_URL)
+	/**
+	 * Get the size of a remote file
+	 * 
+	 * @param p_URL
+	 * @return
+	 */
+	private static int GetRemoteFileSize (URL p_URL)
 	{
 		int size = -1;
 		HttpURLConnection conn = null;

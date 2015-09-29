@@ -32,6 +32,7 @@ public class Main
    			//RemoveFilesInDirManager.RemoveFilesinDir(ConfigVars.LOCAL_TEMP_DIR, ConfigVars.PRINT_PROGRESS);
     	}
     	
+    	/* Print elapsed time of the execution */
     	long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         System.out.println("\nExecution time: " + Utilities.TimeToString	(elapsedTime));
