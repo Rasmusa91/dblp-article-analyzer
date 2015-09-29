@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 
-public final class ReadableByteChannelWrapper implements ReadableByteChannel
+public final class RBCWrapper implements ReadableByteChannel
 {
 	private ReadableByteChannel m_Reader;
 	private int m_TotalBytes;
@@ -10,7 +10,7 @@ public final class ReadableByteChannelWrapper implements ReadableByteChannel
 	private int m_CurrProgPerc;
 	private boolean m_PrintProgress;
 	
-	public ReadableByteChannelWrapper(ReadableByteChannel p_Reader, int p_TotalBytes, boolean p_PrintProgress) 
+	public RBCWrapper(ReadableByteChannel p_Reader, int p_TotalBytes, boolean p_PrintProgress) 
 	{
 		m_Reader = p_Reader;
 		m_TotalBytes = p_TotalBytes;

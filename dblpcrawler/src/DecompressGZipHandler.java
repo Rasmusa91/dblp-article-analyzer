@@ -7,23 +7,35 @@ import java.nio.ByteOrder;
 import java.nio.channels.Channels;
 import java.util.zip.GZIPInputStream;
 
-public class UnzipManager 
+/**
+ * This class is responsible for decompressing GZip files.
+ */
+public class DecompressGZipHandler 
 {
-	public static void UnzipGZipFile(String p_LocalFile, boolean p_PrintProgress)
+	/**
+	 * Decompress the file
+	 * 
+	 * @param p_LocalFile The location and name of the file
+	 * @param p_PrintProgress If debugging is enabled
+	 */
+	public static void Decompress(String p_LocalFile, boolean p_PrintProgress)
 	{
-		FileInputStream fis;
 		GZIPInputStream gis;
-		ReadableByteChannelWrapper rbc;
+		RBCWrapper rbc;
 		FileOutputStream fos;
 		
 		try {
-			fis = new FileInputStream(p_LocalFile);
-			gis = new GZIPInputStream(fis);
-			rbc = new ReadableByteChannelWrapper(Channels.newChannel(gis), GetFileSize(p_LocalFile), p_PrintProgress);
-			fos = new FileOutputStream(p_LocalFile.replace(".gz", ""));
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+			// Use premade libray gzipinput stream decompress
+			gis = new GZIPInputStream(new FileInputStream(p_LocalFile));
 			
-			GetFileSize(p_LocalFile);
+			// Use the custom RBCWrapper to read the file, so progress can be printed
+			rbc = new RBCWrapper(Channels.newChannel(gis), GetFileSize(p_LocalFile), p_PrintProgress);
+			
+			// Write the file to the same location and the same name (except the .gz extension)
+			fos = new FileOutputStream(p_LocalFile.replace(".gz", ""));
+			
+			// Write the new file
+			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 		}
 		catch (Exception e) {
 			System.out.println("Could not unzip file");
@@ -31,8 +43,8 @@ public class UnzipManager
 	}
 	
 	/*
-	 * Read the last 4 bytes of the GZip file to determine the size of the uncompressed file
 	 * Warning: Unreliable
+	 * Read the last 4 bytes of the GZip file to determine the size of the uncompressed file
 	 * */
 	private static int GetFileSize(String p_LocalFile)
 	{

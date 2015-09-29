@@ -4,18 +4,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.Channels;
 
-public class DownloadManager
+/**
+ * This class is responsible for downloading files
+ */
+public class DownloadFileHandler
 {
+	/**
+	 * Download a remote file
+	 * 
+	 * @param p_RemoteFile The URL of the file
+	 * @param p_LocalFile The location and name of where the file should be downloaded to
+	 * @param p_PrintProgress If debugging is wanted
+	 */
 	public static void DownloadFile(String p_RemoteFile, String p_LocalFile, boolean p_PrintProgress)
 	{   	 
    		URL url;
-		ReadableByteChannelWrapper rbcw;
+		RBCWrapper rbcw;
     	FileOutputStream fos;
 
     	try {   		
 			url = new URL(p_RemoteFile);
 			
-	    	rbcw = new ReadableByteChannelWrapper(Channels.newChannel(url.openStream()), GetURLSize(url), p_PrintProgress);
+	    	rbcw = new RBCWrapper(Channels.newChannel(url.openStream()), GetURLSize(url), p_PrintProgress);
 	    	fos = new FileOutputStream(p_LocalFile);
 	    	fos.getChannel().transferFrom(rbcw, 0, Long.MAX_VALUE);    	
     	}

@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class RemoveFilesInDirManager 
+public class TruncateDirHandler 
 {
 	public static void RemoveFilesinDir(String p_Folder, boolean p_PrintProgress)
 	{

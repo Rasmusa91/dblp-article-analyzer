@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * This class represents an article object. This class is responsible for storing article data,
+ * which you can simply get or set.
+ */
 public class Article 
 {
 	private String m_DBLPKey;
